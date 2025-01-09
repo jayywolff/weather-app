@@ -20,6 +20,11 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 
+# The most popular HTML, CSS, and JavaScript framework for developing responsive, mobile first projects on the web. http://getbootstrap.com
+gem 'bootstrap', '~> 5.3.3'
+# Integrate Dart Sass with the asset pipeline in Rails. (Sass engine for bootstrap)
+gem 'dartsass-rails', '~> 0.5.1'
+
 # Deploy this application anywhere as a Docker container [https://kamal-deploy.org]
 gem "kamal", require: false
 

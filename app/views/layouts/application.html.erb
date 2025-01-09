@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" data-bs-theme="dark">
   <head>
-    <title><%= content_for(:title) || "Weather App" %></title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title><%= content_for(:title) || 'Weather App' %></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
@@ -23,6 +24,8 @@
   </head>
 
   <body>
-    <%= yield %>
+    <div class="container">
+      <%= yield %>
+    </div>
   </body>
 </html>

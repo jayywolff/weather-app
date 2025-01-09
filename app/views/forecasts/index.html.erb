@@ -1,0 +1,49 @@
+<h1 class="h2 my-4">Check the current forecast in your area!</h1>
+
+<div class="row mb-3">
+  <div class="col col-lg-10 col-xl-9">
+    <%= form_with url: root_path, method: :get, class: '' do |form| %>
+      <%= form.label :address, 'Search by Address, City, or Zip Code:', class: 'form-label' %>
+
+      <div class="input-group mb-3">
+        <%= form.search_field :address, class: 'form-control', autofocus: @forecast.query.blank?, value: @forecast.query %>
+        <%= form.button nil, class: 'btn btn btn-outline-primary' do %>
+          <i class="bi bi-search" aria-hidden="true"></i> Search
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<% if @forecast.query.present? %>
+  <h2 class="h4">Forecast outlook as of <%= format_datetime @forecast.datetime, weekday: true %></h2>
+  <table class="table align-middle">
+    <thead>
+      <tr>
+        <th>Location</th>
+        <th>Current Temp</th>
+        <th>Min Temp</th>
+        <th>Max Temp</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= "#{@forecast.location_name}, #{@forecast.location_region}" %></td>
+        <td>
+          <%= "#{@forecast.current_temp_f}°(F) | #{@forecast.current_temp_c}°(C)" %>
+          <i class="h5 mb-0 bi bi-<%= temperature_icon(@forecast.current_temp_f) %>"></i>
+        </td>
+        <td>
+          <%= "#{@forecast.min_temp_f}°(F) | #{@forecast.min_temp_c}°(C)" %>
+          <i class="h5 mb-0 bi bi-<%= temperature_icon(@forecast.min_temp_f) %>"></i>
+        </td>
+        <td>
+          <%= "#{@forecast.max_temp_f}°(F) | #{@forecast.max_temp_c}°(C)" %>
+          <i class="h5 mb-0 bi bi-<%= temperature_icon(@forecast.max_temp_f) %>"></i>
+        </td>
+        <td><%= @forecast.condition %><img class="img-fluid" src="<%= @forecast.icon %>" alt="weather condition icon"/></td>
+      </tr>
+    </tbody>
+  </table>
+<% end %>

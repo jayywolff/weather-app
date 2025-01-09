@@ -8,3 +8,10 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
+
+@import "./variables.scss";
+@import "bootstrap";
+
+// Pull in bootstrap icons through the cdn for rapid prototyping without the need to setup npm/yarn to compile it into the app assets
+// I :heart: icons, would generally use fontawesome, trying something different, as I only need a few basic icons for this app
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
