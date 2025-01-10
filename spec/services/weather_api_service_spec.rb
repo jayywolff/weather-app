@@ -33,7 +33,7 @@ RSpec.describe WeatherApiService, type: :service do
         forecast = described_class.get_forecast(query)
 
         expect(forecast).to be_a Forecast
-        expect(forecast.datetime).to eq DateTime.parse('2025-01-09 19:30:00 -0500').in_time_zone('Eastern Time (US & Canada)')
+        expect(forecast.datetime).to eq Time.find_zone('Eastern Time (US & Canada)').parse('2025-01-09 19:30:00 -0500')
         expect(forecast.location_name).to eq 'Tampa'
         expect(forecast.location_region).to eq 'Florida'
         expect(forecast.condition).to eq 'Clear'

@@ -30,7 +30,7 @@ class WeatherApiService
       return forecast
     end
 
-    forecast.assign_attributes datetime: Time.parse(response.dig('current', 'last_updated')),
+    forecast.assign_attributes datetime: Time.find_zone(Rails.configuration.time_zone).parse(response.dig('current', 'last_updated')),
                                location_name: response.dig('location', 'name'),
                                location_region: response.dig('location', 'region'),
                                condition: response.dig('current', 'condition', 'text'),
