@@ -1,0 +1,17 @@
+<% if flash.present? %>
+  <% flash.each do |type, message| %>
+    <div class="alert <%= flash_bootstrap_alert_type(type) %> d-flex align-items-center my-3" role="alert">
+      <i class="h3 mb-0 bi bi-<%= flash_bootstrap_icon(type) %>"></i>
+        <% if message.respond_to?(:each) %>
+          <ul class="mb-0">
+            <% message.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        <% else %>
+          <div><%= message %></div>
+        <% end %>
+    </div>
+  <% end %>
+  <ul>
+<% end %>

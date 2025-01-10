@@ -44,6 +44,7 @@ group :development, :test do
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
 
+  # The best test framework ever created
   gem 'rspec-rails', '~> 7.1.0'
 end
 
@@ -52,3 +53,12 @@ group :development do
   gem "web-console"
 end
 
+group :test do
+  # Extra useful matchers for rspec
+  gem 'shoulda-matchers', '~> 6.4'
+
+  # Integration tests
+  gem 'capybara'
+  gem 'capybara-selenium'
+  
+end

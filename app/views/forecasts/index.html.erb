@@ -6,7 +6,7 @@
       <%= form.label :address, 'Search by Address, City, or Zip Code:', class: 'form-label' %>
 
       <div class="input-group mb-3">
-        <%= form.search_field :address, class: 'form-control', autofocus: @forecast.query.blank?, value: @forecast.query %>
+        <%= form.search_field :address, class: 'form-control', autofocus: (@forecast.query.blank? || @forecast.errors.any?), value: @forecast.query %>
         <%= form.button nil, class: 'btn btn btn-outline-primary' do %>
           <i class="bi bi-search" aria-hidden="true"></i> Search
         <% end %>
@@ -15,7 +15,7 @@
   </div>
 </div>
 
-<% if @forecast.query.present? %>
+<% if @forecast.errors.none? %>
   <h2 class="h4">Forecast outlook as of <%= format_datetime @forecast.datetime, weekday: true %></h2>
   <table class="table align-middle">
     <thead>
@@ -29,20 +29,20 @@
     </thead>
     <tbody>
       <tr>
-        <td><%= "#{@forecast.location_name}, #{@forecast.location_region}" %></td>
-        <td>
-          <%= "#{@forecast.current_temp_f}°(F) | #{@forecast.current_temp_c}°(C)" %>
+        <td class="forecast-location"><%= "#{@forecast.location_name}, #{@forecast.location_region}" %></td>
+        <td class="forecast-current-temp">
+          <%= "#{@forecast.current_temp_f.to_i}°(F) | #{@forecast.current_temp_c.to_i}°(C)" %>
           <i class="h5 mb-0 bi bi-<%= temperature_icon(@forecast.current_temp_f) %>"></i>
         </td>
-        <td>
-          <%= "#{@forecast.min_temp_f}°(F) | #{@forecast.min_temp_c}°(C)" %>
+        <td class="forecast-min-temp">
+          <%= "#{@forecast.min_temp_f.to_i}°(F) | #{@forecast.min_temp_c.to_i}°(C)" %>
           <i class="h5 mb-0 bi bi-<%= temperature_icon(@forecast.min_temp_f) %>"></i>
         </td>
-        <td>
-          <%= "#{@forecast.max_temp_f}°(F) | #{@forecast.max_temp_c}°(C)" %>
+        <td class="forecast-max-temp">
+          <%= "#{@forecast.max_temp_f.to_i}°(F) | #{@forecast.max_temp_c.to_i}°(C)" %>
           <i class="h5 mb-0 bi bi-<%= temperature_icon(@forecast.max_temp_f) %>"></i>
         </td>
-        <td><%= @forecast.condition %><img class="img-fluid" src="<%= @forecast.icon %>" alt="weather condition icon"/></td>
+        <td class="forecast-condition"><%= @forecast.condition %><img class="img-fluid" src="<%= @forecast.icon %>" alt="weather condition icon"/></td>
       </tr>
     </tbody>
   </table>

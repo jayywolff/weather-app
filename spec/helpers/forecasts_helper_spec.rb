@@ -1,15 +1,49 @@
 require 'rails_helper'
 
-# Specs in this file have access to a helper object that includes
-# the ForecastsHelper. For example:
-#
-# describe ForecastsHelper do
-#   describe "string concat" do
-#     it "concats two strings with spaces" do
-#       expect(helper.concat_strings("this","that")).to eq("this that")
-#     end
-#   end
-# end
 RSpec.describe ForecastsHelper, type: :helper do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe '#temperature_icon(temperature)' do
+    subject { helper.temperature_icon(temperature) }
+
+    context 'when temperature is blank' do
+      let(:temperature) { '' }
+
+      it { is_expected.to eq 'thermometer' }
+    end
+
+    context 'when temperature is below 20°(F)' do
+      let(:temperature) { 19 }
+
+      it { is_expected.to eq 'thermometer-snow' }
+    end
+
+    context 'when temperature is between 20-40°(F)' do
+      let(:temperature) { 20.1 }
+
+      it { is_expected.to eq 'thermometer-low' }
+    end
+
+    context 'when temperature is between 40-74°(F)' do
+      let(:temperature) { 73 }
+
+      it { is_expected.to eq 'thermometer-half' }
+    end
+
+    context 'when temperature is between 74-90°(F)' do
+      let(:temperature) { 75 }
+
+      it { is_expected.to eq 'thermometer-high' }
+    end
+
+    context 'when temperature is 90°(F)' do
+      let(:temperature) { 90 }
+
+      it { is_expected.to eq 'thermometer-sun' }
+    end
+
+    context 'when temperature is above 90°(F)' do
+      let(:temperature) { 90.1 }
+
+      it { is_expected.to eq 'thermometer-sun' }
+    end
+  end
 end

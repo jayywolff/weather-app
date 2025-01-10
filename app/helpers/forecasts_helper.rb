@@ -11,11 +11,11 @@ module ForecastsHelper
       'thermometer-snow'
     when temperature < 40
       'thermometer-low'
-    when temperature <= 73
+    when temperature < 74
       'thermometer-half'
     when temperature < 90
       'thermometer-high'
-    when temperature > 90
+    when temperature >= 90
       'thermometer-sun'
     else
       'thermometer'

@@ -19,15 +19,29 @@ class WeatherApiService
   end
 
   def get_forecast
-    response = JSON.parse(Net::HTTP.get(weather_api_uri, { key: @weather_api_key }))
-    return forecast if response.blank? || response.has_key?('error')
+    return forecast if forecast.invalid?
+
+    begin
+      response = JSON.parse(Net::HTTP.get(weather_api_uri, key: @weather_api_key))
+    rescue StandardError => e
+      forecast.errors.add :query, e.message
+      return forecast
+    end
+
+    if response.blank?
+      forecast.errors.add :query, 'failed to get weather. Please try again'
+      return forecast
+    elsif response.has_key?('error')
+      forecast.errors.add :query, "failed: #{response.dig('error', 'message')}"
+      return forecast
+    end
 
     forecast.assign_attributes datetime: Time.parse(response.dig('current', 'last_updated')),
                                location_name: response.dig('location', 'name'),
                                location_region: response.dig('location', 'region'),
-                               current_temp_f: response.dig('current', 'temp_f'),
                                condition: response.dig('current', 'condition', 'text'),
                                icon: "https:#{response.dig('current', 'condition', 'icon')}",
+                               current_temp_f: response.dig('current', 'temp_f'),
                                current_temp_c: response.dig('current', 'temp_c'),
                                min_temp_f: response.dig('forecast', 'forecastday')[0]['day']['mintemp_f'],
                                min_temp_c: response.dig('forecast', 'forecastday')[0]['day']['mintemp_c'],

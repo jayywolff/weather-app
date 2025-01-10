@@ -72,6 +72,8 @@ GEM
       securerandom (>= 0.3)
       tzinfo (~> 2.0, >= 2.0.5)
       uri (>= 0.13.1)
+    addressable (2.8.7)
+      public_suffix (>= 2.0.2, < 7.0)
     ast (2.4.2)
     autoprefixer-rails (10.4.19.0)
       execjs (~> 2)
@@ -90,6 +92,18 @@ GEM
     brakeman (7.0.0)
       racc
     builder (3.3.0)
+    capybara (3.40.0)
+      addressable
+      matrix
+      mini_mime (>= 0.1.3)
+      nokogiri (~> 1.11)
+      rack (>= 1.6.0)
+      rack-test (>= 0.6.3)
+      regexp_parser (>= 1.5, < 3.0)
+      xpath (~> 3.2)
+    capybara-selenium (0.0.6)
+      capybara
+      selenium-webdriver
     concurrent-ruby (1.3.4)
     connection_pool (2.5.0)
     crass (1.0.6)
@@ -156,6 +170,7 @@ GEM
       net-pop
       net-smtp
     marcel (1.0.4)
+    matrix (0.4.2)
     mini_mime (1.1.5)
     minitest (5.25.4)
     msgpack (1.7.5)
@@ -205,6 +220,7 @@ GEM
     psych (5.2.2)
       date
       stringio
+    public_suffix (6.0.1)
     puma (6.5.0)
       nio4r (~> 2.0)
     racc (1.8.1)
@@ -252,6 +268,7 @@ GEM
     regexp_parser (2.10.0)
     reline (0.6.0)
       io-console (~> 0.5)
+    rexml (3.4.0)
     rspec-core (3.13.2)
       rspec-support (~> 3.13.0)
     rspec-expectations (3.13.3)
@@ -298,6 +315,7 @@ GEM
       rubocop-performance
       rubocop-rails
     ruby-progressbar (1.13.0)
+    rubyzip (2.4.1)
     sass-embedded (1.83.1-aarch64-linux-gnu)
       google-protobuf (~> 4.29)
     sass-embedded (1.83.1-aarch64-linux-musl)
@@ -315,6 +333,14 @@ GEM
     sass-embedded (1.83.1-x86_64-linux-musl)
       google-protobuf (~> 4.29)
     securerandom (0.4.1)
+    selenium-webdriver (4.27.0)
+      base64 (~> 0.2)
+      logger (~> 1.4)
+      rexml (~> 3.2, >= 3.2.5)
+      rubyzip (>= 1.2.2, < 3.0)
+      websocket (~> 1.0)
+    shoulda-matchers (6.4.0)
+      activesupport (>= 5.2.0)
     sshkit (1.23.2)
       base64
       net-scp (>= 1.1.2)
@@ -341,10 +367,13 @@ GEM
       activemodel (>= 6.0.0)
       bindex (>= 0.4.0)
       railties (>= 6.0.0)
+    websocket (1.2.11)
     websocket-driver (0.7.7)
       base64
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
+    xpath (3.2.0)
+      nokogiri (~> 1.8)
     zeitwerk (2.7.1)
 
 PLATFORMS
@@ -363,6 +392,8 @@ DEPENDENCIES
   bootsnap
   bootstrap (~> 5.3.3)
   brakeman
+  capybara
+  capybara-selenium
   dartsass-rails (~> 0.5.1)
   debug
   importmap-rails
@@ -373,6 +404,7 @@ DEPENDENCIES
   rails (~> 8.0.1)
   rspec-rails (~> 7.1.0)
   rubocop-rails-omakase
+  shoulda-matchers (~> 6.4)
   thruster
   tzinfo-data
   web-console
