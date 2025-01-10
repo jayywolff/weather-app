@@ -7,6 +7,7 @@ RSpec.describe WeatherApiService, type: :service do
 
   context 'when the app is missing the Weather API Key' do
     before do
+      allow(ENV).to receive(:[]).with('WEATHER_API_KEY').and_return nil
       allow(Rails.application.credentials).to receive(:weather_api_key).and_return nil
     end
 

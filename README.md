@@ -21,13 +21,14 @@ $ cd ./weather-app # set your working directory to the project root
 $ bundle install # install ruby gem dependencies
 $ bundle exec rails db:create # create dev/test databases
 $ bundle exec rails dartsass:build # compile stylesheets (scss)
+$ export WEATHER_API_KEY=mysecretkey # SET a local ENV var with your personal API key obtained from WeatherAPI
 ```
 
-### Add your WeatherAPI API key to the Rails dev/test credentials
+### Add your WeatherAPI API key to the Rails dev/test credentials (optional if you dont want to set the WEATHER_API_KEY ENV var everytime you run the app/tests in a new terminal)
 ```bash
 $ bundle exec rails credentials:edit --environment development # add your WeatherAPI key in the rails credentials
 ```
-`weather_api_key: mysecretkey` # entry should be in yml format, like this (with your personal API key)
+`weather_api_key: mysecretkey` # entry should be in yml format, like this (with your personal API key obtained from WeatherAPI)
 
 ```bash
 $ bundle exec rails credentials:edit --environment test # add a WeatherAPI key in the rails credentials for the test env
