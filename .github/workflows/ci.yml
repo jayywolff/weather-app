@@ -42,7 +42,5 @@ jobs:
         run: bundle install
       - name: Compile stylesheets
         run: rails dartsass:build
-      - name: Setup database
-        run: bundle exec rails db:create
       - name: Run tests
         run: bundle exec rspec

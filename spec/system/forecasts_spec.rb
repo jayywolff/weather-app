@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Forecasts', type: :system do
   describe 'index' do
     let(:weather_api_uri) { URI.parse("https://api.weatherapi.com/v1/forecast.json?q=#{query}&days=1") }
-    let(:weather_api_key) { Rails.application.credentials.weather_api_key }
+    let(:weather_api_key) { ENV.fetch('WEATHER_API_KEY') { Rails.application.credentials.weather_api_key } }
 
     before do
       # Mock the WeatherAPI call and return a fixture json response

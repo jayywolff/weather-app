@@ -18,7 +18,7 @@ RSpec.describe WeatherApiService, type: :service do
 
   describe '.get_forecast(query)' do
     let(:weather_api_uri) { URI.parse("https://api.weatherapi.com/v1/forecast.json?q=#{query}&days=1") }
-    let(:weather_api_key) { Rails.application.credentials.weather_api_key }
+    let(:weather_api_key) { ENV.fetch('WEATHER_API_KEY') { Rails.application.credentials.weather_api_key } }
 
     before do
       # Mock the WeatherAPI call and return a fixture json response
