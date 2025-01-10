@@ -1,4 +1,5 @@
 require "active_support/core_ext/integer/time"
+require 'active_support/core_ext/numeric/bytes'
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
@@ -25,8 +26,8 @@ Rails.application.configure do
     config.action_controller.perform_caching = false
   end
 
-  # Change to :null_store to avoid any caching.
-  config.cache_store = :memory_store
+  # Use in-memory cache store to avoid complexiity of setting up redis for dev
+  config.cache_store = :memory_store, { size: 64.megabytes }
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :local

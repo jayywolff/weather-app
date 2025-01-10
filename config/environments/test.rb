@@ -1,3 +1,4 @@
+require 'active_support/core_ext/numeric/bytes'
 # The test environment is used exclusively to run your application's
 # test suite. You never need to work with it otherwise. Remember that
 # your test database is "scratch space" for the test suite and is wiped
@@ -20,7 +21,9 @@ Rails.application.configure do
 
   # Show full error reports.
   config.consider_all_requests_local = true
-  config.cache_store = :null_store
+
+  # Use in-memory cache store to avoid complexiity of setting up redis for tests
+  config.cache_store = :memory_store, { size: 64.megabytes }
 
   # Render exception templates for rescuable exceptions and raise for other exceptions.
   config.action_dispatch.show_exceptions = :rescuable

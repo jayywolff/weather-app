@@ -21,13 +21,7 @@ class WeatherApiService
   def get_forecast
     return forecast if forecast.invalid?
 
-    begin
-      response = JSON.parse(Net::HTTP.get(weather_api_uri, key: @weather_api_key))
-    rescue StandardError => e
-      forecast.errors.add :query, e.message
-      return forecast
-    end
-
+    response = fetch_forecast
     if response.blank?
       forecast.errors.add :query, 'failed to get weather. Please try again'
       return forecast
@@ -52,6 +46,31 @@ class WeatherApiService
   end
 
   private
+
+    def fetch_forecast
+      begin
+        response = Rails.cache.read(forecast_cache_key)
+        if response.present?
+          forecast.cached_query = true
+          return JSON.parse(response)
+        end
+
+        response = weather_api_forecast
+        Rails.cache.write(forecast_cache_key, response, expires_in: 30.minutes)
+
+        JSON.parse(response)
+      rescue StandardError => e
+        forecast.errors.add :query, 'failed to get weather. Please try again'
+      end
+    end
+
+    def forecast_cache_key
+      "forecast/#{query.parameterize}"
+    end
+
+    def weather_api_forecast
+      Net::HTTP.get(weather_api_uri, key: @weather_api_key)
+    end
 
     def weather_api_uri
       URI.parse("https://api.weatherapi.com/v1/forecast.json?q=#{query}&days=#{FORECAST_DAYS}")

@@ -13,9 +13,14 @@ class Forecast
                min_temp_c
                max_temp_c
                condition
-               icon].freeze
+               icon
+               cached_query].freeze
 
   attr_accessor(*DETAILS)
 
   validates :query, presence: true
+
+  def cached_query?
+    cached_query == true
+  end
 end
