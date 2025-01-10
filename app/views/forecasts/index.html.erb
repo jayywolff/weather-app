@@ -34,7 +34,10 @@
     </thead>
     <tbody>
       <tr>
-        <td class="forecast-location"><%= "#{@forecast.location_name}, #{@forecast.location_region}" %></td>
+        <td class="forecast-location">
+          <%= "#{@forecast.location_name}, #{@forecast.location_region}" %>
+          <i class="h5 mb-0 bi bi-geo-alt-fill"></i>
+        </td>
         <td class="forecast-current-temp">
           <%= "#{@forecast.current_temp_f.to_i}°(F) | #{@forecast.current_temp_c.to_i}°(C)" %>
           <i class="h5 mb-0 bi bi-<%= temperature_icon(@forecast.current_temp_f) %>"></i>
