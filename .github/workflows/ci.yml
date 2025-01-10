@@ -18,8 +18,19 @@ jobs:
           POSTGRES_DB: weather_app_test
         ports:
           - 5432:5432
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     env:
+      RAILS_ENV: test
       WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: weather_app_test
+      POSTGRES_HOST: localhost
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -31,5 +42,7 @@ jobs:
         run: bundle install
       - name: Compile stylesheets
         run: rails dartsass:build
+      - name: Setup database
+        run: bundle exec rails db:create
       - name: Run tests
         run: bundle exec rspec
