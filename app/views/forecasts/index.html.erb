@@ -15,7 +15,7 @@
   </div>
 </div>
 
-<% if @forecast.errors.none? %>
+<% if @forecast.query.present? && @forecast.errors.none? %>
   <h2 class="h4">Forecast outlook as of <%= format_datetime @forecast.datetime, weekday: true %></h2>
   <table class="table align-middle">
     <thead>
