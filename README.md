@@ -1,5 +1,4 @@
-# Weather App
-
+# Weather App [![Build Status](https://github.com/jayywolff/weather-app/actions/workflows/ci.yml/badge.svg)](https://github.com/jayywolff/weather-app/actions)
 Simple Weather App to search for forecasts.
 Built with Ruby on Rails 8, Bootstrap 5, Bootstrap Icons, RSpec, Capybara.
 Powered by [WeatherAPI](https://www.weatherapi.com/docs/)
