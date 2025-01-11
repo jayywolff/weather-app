@@ -27,6 +27,30 @@ RSpec.describe 'Forecasts', type: :system do
         expect(page).to have_css '.forecast-max-temp', text: '61°(F) | 16°(C)'
         expect(page).to have_css '.forecast-condition', text: 'Clear'
       end
+
+      context 'when user seaches for the forecast in the same city multiple times' do
+        it 'returns a cached result after the first search' do
+          visit '/forecasts'
+          expect(page).to have_content 'Check the current forecast in your area!'
+          fill_in 'Search by Address, City, or Zip Code:', with: query
+          click_button 'Search'
+
+          expect(page).to have_content 'Forecast outlook as of Thursday January 9th, 2025 7:30 PM'
+          expect(page).to have_css '.forecast-location', text: 'Tampa, Florida'
+          expect(page).to have_css '.forecast-current-temp', text: '51°(F) | 10°(C)'
+          expect(page).to have_css '.forecast-min-temp', text: '40°(F) | 4°(C)'
+          expect(page).to have_css '.forecast-max-temp', text: '61°(F) | 16°(C)'
+          expect(page).to have_css '.forecast-condition', text: 'Clear'
+
+          click_button 'Search'
+          expect(page).to have_content 'Forecast outlook as of Thursday January 9th, 2025 7:30 PM (cached result *)'
+          expect(page).to have_css '.forecast-location', text: 'Tampa, Florida'
+          expect(page).to have_css '.forecast-current-temp', text: '51°(F) | 10°(C)'
+          expect(page).to have_css '.forecast-min-temp', text: '40°(F) | 4°(C)'
+          expect(page).to have_css '.forecast-max-temp', text: '61°(F) | 16°(C)'
+          expect(page).to have_css '.forecast-condition', text: 'Clear'
+        end
+      end
     end
 
     context 'when user searches for a forecast in a city that cannot be found by the WeatherAPI' do
