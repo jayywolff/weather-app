@@ -58,7 +58,7 @@ end
 
 group :test do
   # Extra useful matchers for rspec
-  gem 'shoulda-matchers', '~> 6.4'
+  gem 'shoulda-matchers', '~> 6.5'
 
   # Integration tests
   gem 'capybara'
